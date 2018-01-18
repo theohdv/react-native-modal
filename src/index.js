@@ -168,6 +168,10 @@ export class ReactNativeModal extends Component {
 
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: (evt, gestureState) => {
+        // Return true if user is swiping, return false if it's a single click
+        return !(gestureState.dx === 0 && gestureState.dy === 0);
+      },
       onPanResponderMove: (evt, gestureState) => {
         // Dim the background while swiping the modal
         const accDistance = this.getAccDistancePerDirection(gestureState);
